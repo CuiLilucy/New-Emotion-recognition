@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity2">
+
+    <LinearLayout
+        android:id="@+id/theme_0"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/theme_1"
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="55dp"
+            android:textColor="#FFBB55"
+            android:textSize="25dp"/>
+        <ImageView
+            android:id="@+id/schedule_0"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
+            android:background="@drawable/no_schedule"/>
+    </LinearLayout>
+
+<!--    <fragment
+        android:id="@+id/fragment_0"
+        android:name="com.example.myapp5.BillFragment"
+        android:layout_width="match_parent"
+        android:layout_height="570dp"
+        android:layout_below="@id/theme_0">
+
+    </fragment>-->
+    <ImageView
+        android:id="@+id/fragment_0"
+        android:name="com.example.myapp5.BillFragment"
+        android:layout_width="match_parent"
+        android:layout_height="570dp"
+        android:layout_below="@id/theme_0">
+
+    </ImageView>
+
+    <LinearLayout
+        android:id="@+id/main2_0"
+        android:layout_width="102dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_below="@id/fragment_0">
+
+        <Button
+            android:id="@+id/main2_1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_display_0" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/main2_01"
+        android:layout_below="@id/fragment_0"
+        android:layout_toRightOf="@id/main2_0"
+        android:gravity="center"
+        android:layout_width="102dp"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/main2_2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_edit_0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/main2_02"
+        android:layout_below="@id/fragment_0"
+        android:layout_toRightOf="@id/main2_01"
+        android:gravity="center"
+        android:layout_width="102dp"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/main2_3"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_chart_fill" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/main2_03"
+        android:layout_below="@id/fragment_0"
+        android:layout_toRightOf="@id/main2_02"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/main2_4"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_my_0" />
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>
