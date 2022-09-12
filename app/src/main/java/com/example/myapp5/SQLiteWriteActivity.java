@@ -50,6 +50,13 @@ public class SQLiteWriteActivity extends AppCompatActivity implements View.OnCli
     private Button btn1,btn2;
     private String AllDiary;
     private int xuhao;
+    private int Anger=0;
+    private int Happy=0;
+    private int Surprise=0;
+    private int Sad=0;
+    private int Disguse=0;
+    private int Fear=0;
+    private int Neutral=0;
     private Calendar calendar = Calendar.getInstance();
 
     private Context mContext;
@@ -154,12 +161,41 @@ public class SQLiteWriteActivity extends AppCompatActivity implements View.OnCli
             info.xuhao = xuhao;
             info.date = date.getText().toString();
             info.month = 100*calendar.get(Calendar.YEAR) + (calendar.get(Calendar.MONTH)+1);
-            mHelper.save(info); // 把账单信息保存到数据库
             //Toast.makeText(this, "已添加账单", Toast.LENGTH_SHORT).show();
             //resetPage(); // 重置页面
             //info.update_time = DateUtil.getNowDateTime("yyyy-MM-dd HH:mm:ss");
             //mHelper.insert(info); // 执行数据库帮助器的插入操作
+            MainActivity1 imageAnalysis = new MainActivity1();
+            int maxScore = imageAnalysis.runImageanalysis();
+            switch(maxScore)
+            {
+                case 0 :
+                    info.Anger = Anger++ ;
+                    break;
+                case 1 :
+                    info.Disgust = Disguse++ ;
+                    break;
+                case 2 :
+                    info.Fear = Fear++ ;
+                    break;
+                case 3 :
+                    info.Happy = Happy++ ;
+                    break;
+                case 4 :
+                    info.Neutral = Neutral++ ;
+                    break;
+                case 5:
+                    info.Sad = Sad++ ;
+                    break;
+                case 6 :
+                    info.Surprise = Surprise++ ;
+                    break;
+                default :
+                    System.out.println("未知类别");
+            }
+            mHelper.save(info); // 把账单信息保存到数据库
             Toast.makeText(this, "已保存",Toast.LENGTH_SHORT).show();
+
             finish();
         }
         if(v.getId()==R.id.date){

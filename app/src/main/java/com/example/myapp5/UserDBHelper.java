@@ -71,7 +71,11 @@ public class UserDBHelper extends SQLiteOpenHelper {
                 + "create_time VARCHAR NOT NULL," + "update_time VARCHAR NULL,"
                 //+ "name VARCHAR NOT NULL," + "age INTEGER NOT NULL,"
                 //+ "height INTEGER NOT NULL," + "weight FLOAT NOT NULL,"
-                + "title VARCHAR NOT NULL," + "text VARCHAR NOT NULL"
+                + "title VARCHAR NOT NULL," + "text VARCHAR NOT NULL,"
+                +"Anger INTEGER NOT NULL,"+"Disgust INTEGER NOT NULL,"
+                +"Fear INTEGER NOT NULL,"+"Happy INTEGER NOT NULL,"
+                +"Neutral INTEGER NOT NULL,"+"Sad INTEGER NOT NULL,"
+                +"Surprise INTEGER NOT NULL"
                 //演示数据库升级时要先把下面这行注释
                 //+ ",phone VARCHAR" + ",password VARCHAR"
                 + ");";
@@ -119,7 +123,13 @@ public class UserDBHelper extends SQLiteOpenHelper {
             cv.put("update_time", info.update_time);
             cv.put("title", info.title);
             cv.put("text", info.text);
-
+            cv.put("Anger", info.Anger);
+            cv.put("Disgust", info.Disgust);
+            cv.put("Happy", info.Happy);
+            cv.put("Fear", info.Fear);
+            cv.put("Neutral", info.Neutral);
+            cv.put("Surprise", info.Surprise);
+            cv.put("Sad", info.Sad);
             // 执行插入记录动作，该语句返回插入记录的行号
 
             //test="INSERT INTO user_info VALUES (info.title,info.text);";
@@ -142,6 +152,13 @@ public class UserDBHelper extends SQLiteOpenHelper {
         cv.put("update_time", info.update_time);
         cv.put("title", info.title);
         cv.put("text", info.text);
+        cv.put("Anger", info.Anger);
+        cv.put("Disgust", info.Disgust);
+        cv.put("Happy", info.Happy);
+        cv.put("Fear", info.Fear);
+        cv.put("Neutral", info.Neutral);
+        cv.put("Surprise", info.Surprise);
+        cv.put("Sad", info.Sad);
         // 执行更新记录动作，该语句返回更新的记录数量
         mWriteDB.update(TABLE_NAME, cv, condition, null);
         return mWriteDB.update(TABLE_NAME, cv, condition, null);
@@ -156,7 +173,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
 
     // 根据指定条件查询记录，并返回结果数据列表
     public List<UserInfo>query(String condition) {
-        String sql = String.format("select rowid,_id,date,month,title,text,create_time,update_time " +
+        String sql = String.format("select rowid,_id,date,month,title,text,create_time,update_time,Anger,Disgust,Fear,Happy,Neutral,Sad,Surprise " +
                 "from %s where %s;", TABLE_NAME, condition);
         Log.d(TAG, "query sql: " + sql);
         List<UserInfo> infoList = new ArrayList<>();
@@ -173,6 +190,13 @@ public class UserDBHelper extends SQLiteOpenHelper {
             info.text = cursor.getString(5);
             info.create_time = cursor.getString(6); // 取出字符串
             info.update_time = cursor.getString(7); // 取出字符串
+            info.Anger= cursor.getInt(8);
+            info.Disgust= cursor.getInt(9);
+            info.Fear= cursor.getInt(10);
+            info.Happy= cursor.getInt(11);
+            info.Neutral= cursor.getInt(12);
+            info.Sad= cursor.getInt(13);
+            info.Surprise= cursor.getInt(14);
             infoList.add(info);
         }
         cursor.close(); // 查询完毕，关闭数据库游标
@@ -185,7 +209,26 @@ public class UserDBHelper extends SQLiteOpenHelper {
         String sql = " _id=" + id + ";";
         return query(sql);
     }
-
+    public int sumScore(String condition) {
+        String sql = String.format("select sum(%s)" +
+                "from %s ;", condition, TABLE_NAME);
+        Log.d(TAG, "query sql: " + sql);
+        List<UserInfo> infoList = new ArrayList<>();
+        // 执行记录查询动作，该语句返回结果集的游标
+        Cursor cursor = mReadDB.rawQuery(sql, null);
+        int sum = 0;
+        if (cursor!=null)
+        {
+            if (cursor.moveToFirst())
+            {
+                do
+                {
+                    sum=cursor.getInt(0);
+                } while (cursor.moveToNext());
+            }
+        }
+        return sum;
+    }
     public void save(UserInfo bill) {
         // 根据序号寻找对应的账单记录
         List<UserInfo> bill_list = (List<UserInfo>) queryById(bill.xuhao);

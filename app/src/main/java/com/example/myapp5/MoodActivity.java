@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 
+import com.bumptech.glide.util.Synthetic;
 import com.example.myapp5.widge.PieChartManager;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -25,6 +26,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoodActivity extends AppCompatActivity {
+    private int Anger=0;
+    private int Happy=0;
+    private int Surprise=0;
+    private int Sad=0;
+    private int Disgust=0;
+    private int Fear=0;
+    private int Neutral=0;
     private PieChart pieChart;
     private LineChart lineChart;
     private XAxis xAxis;                //X轴
@@ -34,6 +42,17 @@ public class MoodActivity extends AppCompatActivity {
     private LimitLine limitLine;        //限制线
 //  private MyMarkerView markerView;    //标记视图 即点击xy轴交点时弹出展示信息的View 需自定义
     private SharedPreferences preferences;
+    private UserDBHelper mHelper;
+    public void getScore(){
+        mHelper = UserDBHelper.getInstance(this);
+        Anger=mHelper.sumScore("Anger");
+        Happy=mHelper.sumScore("Happy");
+        Surprise=mHelper.sumScore("Surprise");
+        Sad=mHelper.sumScore("Sad");
+        Neutral=mHelper.sumScore("Neutral");
+        Fear=mHelper.sumScore("Fear");
+        Disgust=mHelper.sumScore("Disgust");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -254,17 +273,22 @@ public class MoodActivity extends AppCompatActivity {
 
     private void showhodlePieChart() {
         // 设置每份所占数量
+        getScore();
         List<PieEntry> yvals = new ArrayList<>();
-        yvals.add(new PieEntry(2.0f, "开心"));
-        yvals.add(new PieEntry(3.0f, "难过"));
-        yvals.add(new PieEntry(4.0f, "平静"));
-        yvals.add(new PieEntry(10.0f, "生气"));
-        yvals.add(new PieEntry(6.0f, "恐惧"));
+        yvals.add(new PieEntry(Happy, "开心"));
+        yvals.add(new PieEntry(Sad, "难过"));
+        yvals.add(new PieEntry(Neutral, "平静"));
+        yvals.add(new PieEntry(Anger, "生气"));
+        yvals.add(new PieEntry(Fear, "恐惧"));
+        yvals.add(new PieEntry(Anger, "生气"));
+        yvals.add(new PieEntry(Fear, "恐惧"));
         //设置每份的颜色
         List<Integer> colors = new ArrayList<>();
         colors.add(Color.parseColor("#6785f2"));
         colors.add(Color.parseColor("#675cf2"));
         colors.add(Color.parseColor("#496cef"));
+        colors.add(Color.parseColor("#aa63fa"));
+        colors.add(Color.parseColor("#58a9f5"));
         colors.add(Color.parseColor("#aa63fa"));
         colors.add(Color.parseColor("#58a9f5"));
 
