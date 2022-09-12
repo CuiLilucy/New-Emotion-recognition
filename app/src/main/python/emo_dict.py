@@ -36,7 +36,7 @@ def preprocess(filename):
     return origin_words
 
 # 匹配程度副词
-def match_adverb(word):
+def match_adverb(word, debug=False):
     factor = 1
     reverse = 1
     if word in kwd_adverb_extreme:
@@ -67,7 +67,7 @@ def match_adverb(word):
     return factor, reverse
 
 # 加上副词匹配
-def find_with_adverb(wordsList, sig_score=False):
+def find_with_adverb(wordsList, sig_score=False, debug=False):
     score = 50  # 以 50 为初始分数
     pos_count = 0
     neg_count = 0
@@ -87,7 +87,7 @@ def find_with_adverb(wordsList, sig_score=False):
             pos_count += 1
             pos_words.append(word)
             for w in wordsList[senti_i:i + 1]:
-                rtf, rev = match_adverb(w)
+                rtf, rev = match_adverb(w, debug)
                 tf = (tf + rtf) * rev
             score += tf * 6.0
             senti_i = i + 1
@@ -96,7 +96,7 @@ def find_with_adverb(wordsList, sig_score=False):
             pos_count += 1
             pos_words.append(word)
             for w in wordsList[senti_i:i + 1]:
-                rtf, rev = match_adverb(w)
+                rtf, rev = match_adverb(w, debug)
                 tf = (tf + rtf) * rev
             score += tf * 4.0
             senti_i = i + 1
@@ -105,7 +105,7 @@ def find_with_adverb(wordsList, sig_score=False):
             neg_count += 1
             neg_words.append(word)
             for w in wordsList[senti_i:i + 1]:
-                rtf, rev = match_adverb(w)
+                rtf, rev = match_adverb(w, debug)
                 tf = (tf + rtf) * rev
             score += tf * -6.0
             senti_i = i + 1
@@ -114,16 +114,22 @@ def find_with_adverb(wordsList, sig_score=False):
             neg_count += 1
             neg_words.append(word)
             for w in wordsList[senti_i:i + 1]:
-                rtf, rev = match_adverb(w)
+                rtf, rev = match_adverb(w, debug)
                 tf = (tf + rtf) * rev
             score += tf * -4.0
             senti_i = i + 1
 
         i += 1
+
+    if (debug is True):
+        print(wordsList, "\npos_count: ", pos_count, "\nneg_count: ", neg_count)
+        print("pos_words: ", pos_words)
+        print("neg_words: ", neg_words)
+
     return score
 
-def get_score(sentence, sig_score=False):
-    return find_with_adverb(sentence, sig_score)
+def get_score(sentence, sig_score=False, debug=False):
+    return find_with_adverb(sentence, sig_score, debug)
 
 
 def ed_init():

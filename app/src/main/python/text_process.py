@@ -12,9 +12,7 @@ word2idx = {}
 def in_text(sentence: str) -> float:
     words = eliminate_stopwords(tokenize_sentence(sentence), kwd_cn_stopwords)
     # 再简单预处理
-    for word in words:
-        if len(word) > 2 and word[0] == '哈' and word[1] == '哈':
-            word = "哈哈"
+    words = ['哈哈' if len(i) > 2 and i[0] == '哈' and i[1] == '哈' else i for i in words]
 
     return get_score(words, sig_score=False, debug=True)
 
