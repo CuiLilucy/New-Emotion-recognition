@@ -16,12 +16,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.chaquo.python.Python;
+import com.chaquo.python.android.AndroidPlatform;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import com.chaquo.python.*;
 
 public class MainActivity2 extends AppCompatActivity {
 
@@ -32,6 +36,20 @@ public class MainActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        // 先启动 Python 解释器
+        if (!Python.isStarted()) {
+            Python.start(new AndroidPlatform(this));
+        }
+
+        // 初始化文本模块。要调用的时候先 getInstance 再 getScore 就可以了.
+        TextModule mText = TextModule.getInstance();
+        try {
+            mText.doInit(TextModule.assetFilePath(getApplication(), "model5.pt"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         //状态栏背景透明
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE |View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);

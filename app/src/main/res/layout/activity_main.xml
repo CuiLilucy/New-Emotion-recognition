@@ -20,15 +20,15 @@
         android:textSize="50dp"
         android:textColor="#FFFFFF"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
+        android:gravity="center"
         android:layout_marginTop="300dp">
         <Button
             android:id="@+id/interface_1"
             android:layout_width="150dp"
-            android:layout_marginLeft="45dp"
             android:background="@drawable/bg_btn2"
             android:layout_height="50dp"
             android:text="注册"
@@ -37,13 +37,14 @@
         <Button
             android:id="@+id/interface_2"
             android:layout_width="150dp"
-            android:background="@drawable/bg_btn2"
-            android:layout_marginLeft="20dp"
             android:layout_height="50dp"
+            android:background="@drawable/bg_btn2"
+            android:layout_toRightOf="@+id/interface_1"
+            android:layout_marginLeft="20dp"
             android:text="登录"
             android:textSize="25dp"
             android:textColor="#FFFFFF"/>
-    </LinearLayout>
+    </RelativeLayout>
 
 
 
