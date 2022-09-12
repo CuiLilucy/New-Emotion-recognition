@@ -5,18 +5,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!---include layout="@layout/title_booking" /-->
     <RelativeLayout
         android:id="@+id/write_beg_0"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="60dp"
+        android:orientation="horizontal">
 
-        <ImageView
+        <Button
             android:id="@+id/back_write"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/bg_back_0" />
 
         <Button
@@ -24,14 +24,19 @@
             android:layout_width="60dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="280dp"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/back_write"
-            android:background="@drawable/bg_btn2"
+            android:layout_marginStart="280dp"
+            android:layout_marginTop="20dp"
             android:text="@string/save"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:background="@drawable/bg_btn1"/>
+<!--            android:layout_marginLeft="280dp"-->
+<!--        android:background="@drawable/bg_btn2"-->
+<!--            android:layout_toRightOf="@id/back_write"-->
+<!--            android:layout_marginEnd="200dp"-->
+<!--            android:layout_marginBottom="200dp"-->
+<!--            android:layout_marginStart="200dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent" />-->
 
     </RelativeLayout>
     <LinearLayout
@@ -97,14 +102,14 @@
 
     <Button
         android:id="@+id/face_recognition"
-        android:layout_marginLeft="300dp"
+        android:layout_marginLeft="290dp"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/face_recognize"/>
 
     <Button
         android:id="@+id/voice_recognition"
-        android:layout_marginLeft="300dp"
+        android:layout_marginLeft="290dp"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/voice_recognize"/>
