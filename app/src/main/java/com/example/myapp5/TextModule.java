@@ -120,7 +120,7 @@ public class TextModule {
             result += scorePerSentence.get(i) * ((float)lengthList.get(i) / (float)lenSum);
         }
 
-        return result;
+        return overScore(result);
     }
 
     public static String assetFilePath(Context context, String assetName) throws IOException {
@@ -165,5 +165,24 @@ public class TextModule {
 
     private static boolean isConsistent(float rawScore, boolean status) {
         return rawScore >= 50 && status || rawScore < 50 && !status;
+    }
+
+    private static float sigmoid(float x) {
+        return 1 / (1 + (float)Math.pow(Math.E, -x));
+    }
+
+    private static float overScore(float x) {
+        if (x == 50) return 50;
+
+        boolean isPositive = x > 50;
+        if (!isPositive)
+            x = 100 - x;
+        x = (float)Math.log(x - 50) / (float)Math.log(6);
+        x = 100 * sigmoid(x);
+
+        System.out.println(x);
+        if (!isPositive) {
+            return 100 - x;
+        } else return x;
     }
 }
