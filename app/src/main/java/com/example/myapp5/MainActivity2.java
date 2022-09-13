@@ -37,19 +37,6 @@ public class MainActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        // 先启动 Python 解释器
-        if (!Python.isStarted()) {
-            Python.start(new AndroidPlatform(this));
-        }
-
-        // 初始化文本模块。要调用的时候先 getInstance 再 getScore 就可以了.
-        TextModule mText = TextModule.getInstance();
-        try {
-            mText.doInit(TextModule.assetFilePath(getApplication(), "model5.pt"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         //状态栏背景透明
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE |View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
