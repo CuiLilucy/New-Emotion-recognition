@@ -21,7 +21,7 @@ android {
 
         // ...
         python {
-            buildPython "D:/Anaconda3/envs/py38/python.exe" // 因人而异
+            buildPython "C:/Users/HP/AppData/Local/Programs/Python/Python39/python.exe" // 因人而异
             pip {
                 install "jieba" // 我是本地安装的包。在线安装直接换成 "jieba"
             }

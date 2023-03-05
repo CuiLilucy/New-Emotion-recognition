@@ -14,7 +14,7 @@ import java.util.List;
 @SuppressLint("DefaultLocale")
 public class UserDBHelper extends SQLiteOpenHelper {
     private static final String TAG = "UserDBHelper";
-    private static final String DB_NAME = "user.db"; // 数据库的名称
+    private static final String DB_NAME = "mooduser.db"; // 数据库的名称
     private static UserDBHelper mHelper = null; // 数据库帮助器的实例
     private SQLiteDatabase mDB = null; // 数据库的实例
     private static final int mVersion = 1;
