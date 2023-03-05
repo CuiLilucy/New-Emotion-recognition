@@ -81,8 +81,11 @@ public class SQLiteWriteActivity extends AppCompatActivity implements View.OnCli
 
     //存储拍完照后的图片
     private File outputImagePath;
+
     //图片路径
     private String chooseImagePath;
+    //存储拍完照后的图片的上一级
+    private String fatherImagePath;
     //启动相机标识
     public static final int TAKE_PHOTO = 1;
     //启动相册标识
@@ -152,8 +155,8 @@ public class SQLiteWriteActivity extends AppCompatActivity implements View.OnCli
                 calendar.set(Calendar.YEAR, date.getYear()+1900);
                 calendar.set(Calendar.MONTH, date.getMonth());
                 calendar.set(Calendar.DAY_OF_MONTH, date.getDate());
-                title.setText(bill.title); // 设置账单的描述文本
-                text.setText(bill.text); // 设置账单的交易金额
+                title.setText(bill.title);
+                text.setText(bill.text);
             }
         }
         date.setText(DateUtil.getDate(calendar)); // 设置账单的发生时间
@@ -353,6 +356,7 @@ public class SQLiteWriteActivity extends AppCompatActivity implements View.OnCli
                     //显示图片
 //                    displayImage(outputImagePath.getAbsolutePath());
                     chooseImagePath = outputImagePath.getAbsolutePath();
+                    fatherImagePath= outputImagePath.getParentFile().getAbsolutePath();
                     displayImage(chooseImagePath);
                 }
                 break;
@@ -415,6 +419,7 @@ public class SQLiteWriteActivity extends AppCompatActivity implements View.OnCli
         //确保有相机来处理Intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             outputImagePath = saveFileName();
+            fatherImagePath = saveFileName().getParent();
             if (outputImagePath != null) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     //适配Android 7.0文件权限，通过FileProvider创建一个content类型的Uri
@@ -460,6 +465,9 @@ public class SQLiteWriteActivity extends AppCompatActivity implements View.OnCli
 
     public String getChooseImagePath() {
         return chooseImagePath;
+    }
+    public String getFatherImagePath() {
+        return fatherImagePath;
     }
 
     public String getAllDiary() {
